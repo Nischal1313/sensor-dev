@@ -1,3 +1,101 @@
+
+Notes:
+The calibration data that needs to be saved and read back:
+struct bme69x_calib_data
+{
+    /*! Calibration coefficient for the humidity sensor */
+    int16_t par_h1;
+
+    /*! Calibration coefficient for the humidity sensor */
+    int8_t par_h2;
+
+    /*! Calibration coefficient for the humidity sensor */
+    uint8_t par_h3;
+
+    /*! Calibration coefficient for the humidity sensor */
+    int8_t par_h4;
+
+    /*! Calibration coefficient for the humidity sensor */
+    int16_t par_h5;
+
+    /*! Calibration coefficient for the humidity sensor */
+    uint8_t par_h6;
+
+    /*! Calibration coefficient for the gas sensor */
+    int8_t par_g1;
+
+    /*! Calibration coefficient for the gas sensor */
+    int16_t par_g2;
+
+    /*! Calibration coefficient for the gas sensor */
+    int8_t par_g3;
+
+    /*! Calibration coefficient for the temperature sensor */
+    uint16_t par_t1;
+
+    /*! Calibration coefficient for the temperature sensor */
+    uint16_t par_t2;
+
+    /*! Calibration coefficient for the temperature sensor */
+    int8_t par_t3;
+
+    /*! Calibration coefficient for the pressure sensor */
+    int16_t par_p5;
+
+    /*! Calibration coefficient for the pressure sensor */
+    int16_t par_p6;
+
+    /*! Calibration coefficient for the pressure sensor */
+    int8_t par_p7;
+
+    /*! Calibration coefficient for the pressure sensor */
+    int8_t par_p8;
+
+    /*! Calibration coefficient for the pressure sensor */
+    uint16_t par_p1;
+
+    /*! Calibration coefficient for the pressure sensor */
+    uint16_t par_p2;
+
+    /*! Calibration coefficient for the pressure sensor */
+    int8_t par_p3;
+
+    /*! Calibration coefficient for the pressure sensor */
+    int8_t par_p4;
+
+    /*! Calibration coefficient for the pressure sensor */
+    int16_t par_p9;
+
+    /*! Calibration coefficient for the pressure sensor */
+    int8_t par_p10;
+
+    int8_t par_p11;
+#ifndef BME69X_USE_FPU
+
+    /*! Variable to store the intermediate temperature coefficient */
+    int32_t t_fine;
+#else
+
+    /*! Variable to store the intermediate temperature coefficient */
+    float t_fine;
+#endif
+
+    /*! Heater resistance range coefficient */
+    uint8_t res_heat_range;
+
+    /*! Heater resistance value coefficient */
+    int8_t res_heat_val;
+
+    /*! Gas resistance range switching error coefficient */
+    int8_t range_sw_err;
+};
+
+Lorawan app key 
+Individual keys for devices and their sensors so that makes two different app keys. 
+Encryption keys for secure OTA updates, if we have enough time for it. If OTA update failed, it needs to be reset locally. 
+Saving offline data and error keys.
+
+
 # ESP-IDF NVS (Non-Volatile Storage) Overview  
 Data gathered by Nischal Gautam, summarized by ChatGPT  
 References:  
@@ -225,4 +323,6 @@ Only identical key names in the same namespace can overwrite each other.
 - You cannot overwrite other partitions.  
 - You cannot break the chip or program by writing large amounts of data.  
 - NVS remains stable unless flash wear limits are exceeded.
+ 
+
 
