@@ -1,6 +1,8 @@
 
 Notes:
 The calibration data that needs to be saved and read back:
+
+'''
 struct bme69x_calib_data
 {
     /*! Calibration coefficient for the humidity sensor */
@@ -89,11 +91,11 @@ struct bme69x_calib_data
     /*! Gas resistance range switching error coefficient */
     int8_t range_sw_err;
 };
+'''
 
-Lorawan app key 
-Individual keys for devices and their sensors so that makes two different app keys. 
-Encryption keys for secure OTA updates, if we have enough time for it. If OTA update failed, it needs to be reset locally. 
-Saving offline data and error keys.
+Lorawan app key. Individual keys for devices and their sensors so that makes two unique app keys, per device. 
+
+Encryption keys for secure OTA updates, if we have enough time for it. If OTA update failed, it needs to be reset locally. Saving offline data and error keys.
 
 
 # ESP-IDF NVS (Non-Volatile Storage) Overview  
