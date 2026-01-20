@@ -1,56 +1,29 @@
-#pragma once
-#include "nvs_flash.h"
-#include "nvs.h"
-#include <string>
+#include "newCalibData.h"
 #include "esp_log.h"
 
-class NVSUtility {
-public:
-    NVSUtility(const char* namespace_name = "storage")
-        : ns(namespace_name) {}
+static const char *TAG = "MAIN";
 
-    void init() {
-        esp_err_t ret = nvs_flash_init();
-        if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
-            ESP_ERROR_CHECK(nvs_flash_erase());
-            ret = nvs_flash_init();
-        }
-        ESP_ERROR_CHECK(ret);
-    }
+extern "C" void app_main(void) {
+  uint8_t state_buffer[BmeStateStorage::STATE_SIZE] = {0};
 
-    bool writeStr(const char* key, const char* value) {
-        nvs_handle_t handle;
-        esp_err_t ret = nvs_open(ns, NVS_READWRITE, &handle);
-        if (ret != ESP_OK) return false;
+  BmeStateStorage storage;
 
-        ret = nvs_set_str(handle, key, value);
-        if (ret == ESP_OK) nvs_commit(handle);
+  esp_err_t err = storage.load(state_buffer);
 
-        nvs_close(handle);
-        return ret == ESP_OK;
-    }
+  if (err == ESP_OK) {
+    ESP_LOGI(TAG, "BME state loaded from NVS");
+    // Pass state_buffer to BME690 library
+  } else if (err == ESP_ERR_NVS_NOT_FOUND) {
+    ESP_LOGI(TAG, "No stored BME state, starting fresh");
+    // Let sensor generate initial state
+  } else {
+    ESP_LOGE(TAG, "Failed to load BME state (%s)", esp_err_to_name(err));
+  }
 
-    std::string readStr(const char* key) {
-        nvs_handle_t handle;
-        esp_err_t ret = nvs_open(ns, NVS_READONLY, &handle);
-        if (ret != ESP_OK) return "";
-
-        size_t required_size = 0;
-        ret = nvs_get_str(handle, key, nullptr, &required_size);
-        if (ret != ESP_OK || required_size == 0) {
-            nvs_close(handle);
-            return "";
-        }
-
-        char* buf = new char[required_size];
-        ret = nvs_get_str(handle, key, buf, &required_size);
-        std::string value;
-        if (ret == ESP_OK) value = std::string(buf);
-        delete[] buf;
-        nvs_close(handle);
-        return value;
-    }
-
-private:
-    const char* ns;
-};
+  err = storage.save(state_buffer);
+  if (err == ESP_OK) {
+    ESP_LOGI(TAG, "BME state saved to NVS");
+  } else {
+    ESP_LOGE(TAG, "Failed to save BME state (%s)", esp_err_to_name(err));
+  }
+}
