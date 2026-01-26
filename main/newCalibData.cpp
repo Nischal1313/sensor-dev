@@ -1,22 +1,28 @@
 #include "newCalibData.h"
-#include "calibData.h"
+#include "calibData.h"  // make sure this is included
+#include <vector>
+#include <cstring>      // for memcpy
 
 esp_err_t BmeStateStorage::save(const uint8_t *state) {
-  if (state == nullptr) {
-    return ESP_ERR_INVALID_ARG;
-  }
+    // Pass namespace to CalibData constructor
+    CalibData nvs(NAMESPACE);
 
-  CalibData nvs;
-
-  return nvs.writeBlob(NAMESPACE, KEY, state, STATE_SIZE);
+    // writeBlob expects 3 arguments: key, pointer, length
+    return nvs.writeBlob(KEY, state, STATE_SIZE);
 }
 
 esp_err_t BmeStateStorage::load(uint8_t *state) {
-  if (state == nullptr) {
-    return ESP_ERR_INVALID_ARG;
-  }
+    CalibData nvs(NAMESPACE);
 
-  CalibData nvs;
+    // readBlob fills a std::vector
+    std::vector<uint8_t> buffer;
+    esp_err_t err = nvs.readBlob(KEY, buffer);
 
-  return nvs.readBlob(NAMESPACE, KEY, state, STATE_SIZE);
+    if (err != ESP_OK || buffer.size() != STATE_SIZE) {
+        return ESP_FAIL;
+    }
+
+    // copy vector into raw pointer
+    memcpy(state, buffer.data(), STATE_SIZE);
+    return ESP_OK;
 }

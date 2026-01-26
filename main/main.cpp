@@ -13,7 +13,7 @@ extern "C" void app_main(void) {
   if (err == ESP_OK) {
     ESP_LOGI(TAG, "BME state loaded from NVS");
     // Pass state_buffer to BME690 library
-  } else if (err == ESP_ERR_NVS_NOT_FOUND) {
+  } else if (err == ESP_ERR_NOT_FOUND) {
     ESP_LOGI(TAG, "No stored BME state, starting fresh");
     // Let sensor generate initial state
   } else {

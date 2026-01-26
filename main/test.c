@@ -1,6 +1,5 @@
 #include "nvs_flash.h"
 #include "nvs.h"
-#include <string>
 #include <stdio.h>
 #include "esp_system.h"
 
