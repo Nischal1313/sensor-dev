@@ -4,6 +4,7 @@
 #include <cstdio>
 #include <sstream>
 #include <iomanip>
+#include <inttypes.h>
 
 NVSStorage::NVSStorage(const char* ns, const char* log_tag) 
     : namespace_name(ns), tag(log_tag), verbose_logging(true) {}
@@ -135,7 +136,8 @@ esp_err_t NVSStorage::writeUInt8(const char* key, uint8_t value) {
 
 esp_err_t NVSStorage::writeInt16(const char* key, int16_t value) {
     if (key == nullptr) {
-        ESP_LOGE(tag, "%s(): Failed to write value: key is NULL!", __func__);
+        ESP_LOGI(tag, "Successfully wrote int32 to NVS %s.%s: %" PRId32, 
+            namespace_name, key, value);   
         return ESP_ERR_INVALID_ARG;
     }
     
@@ -170,7 +172,9 @@ esp_err_t NVSStorage::writeInt16(const char* key, int16_t value) {
 
 esp_err_t NVSStorage::writeUInt16(const char* key, uint16_t value) {
     if (key == nullptr) {
-        ESP_LOGE(tag, "%s(): Failed to write value: key is NULL!", __func__);
+        ESP_LOGI(tag, "Successfully wrote uint32 to NVS %s.%s: %" PRIu32, 
+            namespace_name, key, value);
+   
         return ESP_ERR_INVALID_ARG;
     }
     
@@ -275,7 +279,8 @@ esp_err_t NVSStorage::writeUInt32(const char* key, uint32_t value) {
 
 esp_err_t NVSStorage::writeInt64(const char* key, int64_t value) {
     if (key == nullptr) {
-        ESP_LOGE(tag, "%s(): Failed to write value: key is NULL!", __func__);
+        ESP_LOGI(tag, "Successfully wrote int64 to NVS %s.%s: %" PRId64, 
+            namespace_name, key, value);   
         return ESP_ERR_INVALID_ARG;
     }
     
@@ -310,7 +315,8 @@ esp_err_t NVSStorage::writeInt64(const char* key, int64_t value) {
 
 esp_err_t NVSStorage::writeUInt64(const char* key, uint64_t value) {
     if (key == nullptr) {
-        ESP_LOGE(tag, "%s(): Failed to write value: key is NULL!", __func__);
+        ESP_LOGI(tag, "Successfully wrote int64 to NVS %s.%s: %" PRId64, 
+            namespace_name, key, value);   
         return ESP_ERR_INVALID_ARG;
     }
     

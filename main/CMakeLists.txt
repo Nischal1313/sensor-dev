@@ -1,5 +1,5 @@
 idf_component_register(
-  SRCS "newCalibData.cpp" "calibData.cpp" "main.cpp" "savingCalibration.cpp" "write.c"
+  SRCS  "main.cpp" "savingCalibration.cpp" "isd-nvs.cpp"
 INCLUDE_DIRS "."
 REQUIRES nvs_flash 
 )
