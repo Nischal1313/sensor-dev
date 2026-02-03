@@ -35,7 +35,7 @@ public:
     // - key: Name of the stored key.
     // - type: Type of data being written.
     // - value: Pointer to the value being written.
-    // - length: Only used for STR or BLOB. Ignored for numeric types.
+    // - length: Only used for STR or BLOB. Ignored for numeric types. Use nullptr
     static esp_err_t writeValue(
         const char* ns,
         const char* key,
