@@ -2,9 +2,9 @@
 #include <cstdio>
 
 // Static member initialization
-bool CalibData::nvs_initialized = false;
+bool Storage::nvs_initialized = false;
 
-esp_err_t CalibData::initNVS() {
+esp_err_t Storage::initNVS() {
     // Only initialize once
     if (nvs_initialized) {
         return ESP_OK;
@@ -23,7 +23,7 @@ esp_err_t CalibData::initNVS() {
     return err;
 }
 
-esp_err_t CalibData::writeValue(
+esp_err_t Storage::writeValue(
         const char* ns,
         const char* key,
         NvsDataType type,
@@ -119,7 +119,7 @@ esp_err_t CalibData::writeValue(
     return err;
 }
 
-esp_err_t CalibData::readValue(
+esp_err_t Storage::readValue(
         const char* ns,
         const char* key,
         NvsDataType type,

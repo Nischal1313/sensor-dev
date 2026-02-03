@@ -1,12 +1,8 @@
-#ifndef CALIB_DATA_H
-#define CALIB_DATA_H
+#ifndef STORAGE_H
+#define STORAGE_H
 
 #include "nvs_flash.h"
 #include "nvs.h"
-#include <string>
-
-// There is a test.cpp where you can see how to use this and then test it by
-// writing and reading 
 
 // Supported data types for read/write.
 // These directly map to NVS typed APIs.
@@ -23,7 +19,11 @@ enum class NvsDataType {
     BLOB
 };
 
-class CalibData {
+// Constants for data sizes
+#define STATE_BUFFER_SIZE 197
+#define LORA_KEY_SIZE 17
+
+class Storage {
 public:
 
     // Initializes NVS flash (erase if corrupted newer/older version detected).
@@ -62,6 +62,50 @@ public:
         NvsDataType type,
         void* out_value,
         size_t* length = nullptr
+    );
+
+    // Convenience function to write state buffer
+    // Parameters:
+    // - ns: Namespace to open
+    // - key: Key name (e.g., "state_buffer")
+    // - buffer: Pointer to state buffer (must be STATE_BUFFER_SIZE bytes)
+    static esp_err_t writeStateBuffer(
+        const char* ns,
+        const char* key,
+        const uint8_t* buffer
+    );
+
+    // Convenience function to read state buffer
+    // Parameters:
+    // - ns: Namespace to open
+    // - key: Key name (e.g., "state_buffer")
+    // - buffer: Pointer to output buffer (must be at least STATE_BUFFER_SIZE bytes)
+    static esp_err_t readStateBuffer(
+        const char* ns,
+        const char* key,
+        uint8_t* buffer
+    );
+
+    // Convenience function to write LoRa key
+    // Parameters:
+    // - ns: Namespace to open
+    // - key: Key name (e.g., "lora_key")
+    // - lora_key: Pointer to LoRa key (must be LORA_KEY_SIZE bytes)
+    static esp_err_t writeLoRaKey(
+        const char* ns,
+        const char* key,
+        const uint8_t* lora_key
+    );
+
+    // Convenience function to read LoRa key
+    // Parameters:
+    // - ns: Namespace to open
+    // - key: Key name (e.g., "lora_key")
+    // - lora_key: Pointer to output buffer (must be at least LORA_KEY_SIZE bytes)
+    static esp_err_t readLoRaKey(
+        const char* ns,
+        const char* key,
+        uint8_t* lora_key
     );
 
 private:
