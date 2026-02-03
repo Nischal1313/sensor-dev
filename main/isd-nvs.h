@@ -27,15 +27,19 @@ class CalibData {
 public:
 
     // Initializes NVS flash (erase if corrupted newer/older version detected).
+    // This is called automatically by writeValue/readValue, but can be called
+    // explicitly if early initialization is desired.
+    // Returns ESP_OK on success.
     static esp_err_t initNVS();
 
     // Write a value to NVS.
     // Parameters:
-    // - ns: Namespace to open.
-    // - key: Name of the stored key.
+    // - ns: Namespace to open (must not be nullptr).
+    // - key: Name of the stored key (must not be nullptr).
     // - type: Type of data being written.
-    // - value: Pointer to the value being written.
-    // - length: Only used for STR or BLOB. Ignored for numeric types. Use nullptr
+    // - value: Pointer to the value being written (must not be nullptr).
+    // - length: Only used for BLOB type. Ignored for numeric types and STR.
+    // Returns ESP_OK on success, error code otherwise.
     static esp_err_t writeValue(
         const char* ns,
         const char* key,
@@ -46,11 +50,12 @@ public:
 
     // Read a value from NVS.
     // Parameters:
-    // - ns: Namespace to open.
-    // - key: Key name.
+    // - ns: Namespace to open (must not be nullptr).
+    // - key: Key name (must not be nullptr).
     // - type: Expected type to read.
-    // - out_value: Pointer where result is stored.
+    // - out_value: Pointer where result is stored (must not be nullptr).
     // - length: For STR/BLOB this must be provided to know buffer size.
+    // Returns ESP_OK on success, error code otherwise.
     static esp_err_t readValue(
         const char* ns,
         const char* key,
@@ -58,6 +63,10 @@ public:
         void* out_value,
         size_t* length = nullptr
     );
+
+private:
+    // Track whether NVS has been initialized
+    static bool nvs_initialized;
 };
 
 #endif
