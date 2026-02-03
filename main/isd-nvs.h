@@ -5,6 +5,9 @@
 #include "nvs.h"
 #include <string>
 
+// There is a test.cpp where you can see how to use this and then test it by
+// writing and reading 
+
 // Supported data types for read/write.
 // These directly map to NVS typed APIs.
 enum class NvsDataType {
