@@ -59,9 +59,9 @@ bool uart_init()
 
 int uart_read_line(char *buf, size_t max_len)
 {
-    size_t idx = 0;
+    size_t index = 0;
 
-    while (idx < max_len - 1) {
+    while (index < max_len - 1) {
         uint8_t byte;
         int len = uart_read_bytes(
             UART_PORT_NUM,
@@ -72,15 +72,15 @@ int uart_read_line(char *buf, size_t max_len)
 
         if (len > 0) {
             if (byte == '\n') {
-                buf[idx] = '\0';   // terminate string
-                return idx;        // return length
+                buf[index] = '\0';   // terminate string
+                return index;        // return length
             }
-            buf[idx++] = byte;
+            buf[index++] = byte;
         }
     }
 
     buf[max_len - 1] = '\0';
-    return idx;
+    return index;
 }
 
 
