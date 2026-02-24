@@ -21,7 +21,10 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f69cee7c-e90f-4a7c-852b-d5c516c4a5a0" name="Changes" comment="">
+    <list default="true" id="f69cee7c-e90f-4a7c-852b-d5c516c4a5a0" name="Changes" comment="usb connection check">
+      <change afterPath="$PROJECT_DIR$/main/loadConfigFromNVS.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/loadConfigFromNVS.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -43,8 +46,8 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;git@github.com:Nischal1313/sensor-dev.git&quot;,
-    &quot;accountId&quot;: &quot;05b6f860-c2f1-4915-affb-f197ce76f040&quot;
+    &quot;url&quot;: &quot;https://github.com/Nischal1313/sensor-dev.git&quot;,
+    &quot;accountId&quot;: &quot;623ac103-12ff-40f0-9a4a-fb2f1049791e&quot;
   }
 }</component>
   <component name="MacroExpansionManager">
@@ -60,6 +63,9 @@
   &quot;associatedIndex&quot;: 5
 }</component>
   <component name="ProjectId" id="36hfNcBjXsS2Uz8f97UJu6wgbjq" />
+  <component name="ProjectStatusUIService">{
+  &quot;uiKindId&quot;: &quot;Widget&quot;
+}</component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -84,7 +90,7 @@
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;org.rust.first.attach.projects&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -99,8 +105,18 @@
       <option name="presentableId" value="Default" />
       <updated>1765463685221</updated>
       <workItem from="1765463686220" duration="386000" />
-      <workItem from="1770836921233" duration="2574000" />
+      <workItem from="1770836921233" duration="6656000" />
+      <workItem from="1771924643985" duration="3836000" />
     </task>
+    <task id="LOCAL-00001" summary="usb connection check">
+      <option name="closed" value="true" />
+      <created>1770839534487</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1770839534487</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -110,5 +126,13 @@
     <isAutomaticCheckingOnLaunch value="false" />
     <isAutomaticFoundErrors value="true" />
     <isAutomaticReloadCMake value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="usb connection check" />
+    <option name="LAST_COMMIT_MESSAGE" value="usb connection check" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
