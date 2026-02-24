@@ -1,21 +1,21 @@
 #include <stdio.h>
-#include <string.h>
+#include <stdbool.h>
 #include "driver/usb_serial_jtag.h"
-#include "freertos/FreeRTOS.h"
+#include "sdkconfig.h"
 #include "freertos/task.h"
+#include "freertos/FreeRTOS.h"
+#include <string.h>
+#include "device/device_setup.h"
+#include "freertos/queue.h"
+#include "driver/uart.h"
+#include "esp_log.h"
+#include "tasks.h"
 
 #define RX_BUF_SIZE 128
 
 // Simple device name variable
 static char device_name[64] = "ESP32-S3-Device";
 
-
-#include <stdio.h>
-#include <stdbool.h>
-#include "driver/usb_serial_jtag.h"
-#include "sdkconfig.h"
-#include "freertos/task.h"
-#include "freertos/FreeRTOS.h"
 
 // ---- Command Handler ----
 void handle_command(char *cmd)
@@ -94,6 +94,11 @@ extern "C" void app_main(void)
     usb_serial_jtag_driver_config_t config = {1024, 1024}; // rx_buffer_size, tx_buffer_size
     usb_serial_jtag_driver_install(&config);
 
+    if (!uart_init()) {
+        ESP_LOGE("MAIN", "UART init failed");
+        return;
+    }
+
     xTaskCreate(
         usb_console_task,
         "usb_console",
@@ -102,4 +107,7 @@ extern "C" void app_main(void)
         5,
         NULL
     );
+    
+
+    xTaskCreate(uart_task, "uart_task", 4096, nullptr, 10, nullptr);
 }

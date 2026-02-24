@@ -1,0 +1,26 @@
+import requests
+import serial
+import json
+import time
+
+#response = requests.get("http://<pi-ip>:3000/api/latest-device")
+#data = response.json()  # devEui, joinEui, appKey
+
+# Testing with fake data
+data = {
+    "devEui": "ABCDEF1234567890",
+    "joinEui": "1122334455667788",
+    "appKey": "AABBCCDDEEFF00112233445566778899"
+}
+
+ser = serial.Serial('/dev/ttyACM0', 115200, timeout=1)
+
+ser.write((json.dumps(data) + "\n").encode())
+
+response = ser.readline().decode().strip()
+print("ESP replied:", response)
+
+time.sleep(0.1)
+ser.close()
+
+print("Sent keys:", data)
