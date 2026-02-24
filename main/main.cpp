@@ -3,32 +3,21 @@
 #include "driver/usb_serial_jtag.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
-#include "storage.h"
-#include "config_storage.h"
+#include "driver/usb_serial_jtag.h"
 
 #define RX_BUF_SIZE 128
 
-static char device_name[64] = "ESP32-S3-Device"; // Simple device name variable
-static char key_name[64] = "key";   // Simple key variable
-static int com_freq = 10; // Sensor communication frequency
-
-
-#include <stdio.h>
-#include <stdbool.h>
-#include "driver/usb_serial_jtag.h"
-#include "sdkconfig.h"
-#include "freertos/task.h"
-#include "freertos/FreeRTOS.h"
+// Simple device name variable
+static char device_name[64] = "ESP32-S3-Device";
 
 // ---- Command Handler ----
-void handle_command(char *cmd){
+void handle_command(char *cmd)
+{
     if (strcmp(cmd, "help") == 0) {
         printf("\nAvailable commands:\n");
         printf("help               - Show this message\n");
         printf("name               - Show current device name\n");
         printf("setname <value>    - Set new device name\n\n");
-        printf("Setkey <value>    - Set new key value\n\n");
-        printf("Setfrequency <value>   - Set new device frequency\n\n");
     }
 
     else if (strcmp(cmd, "name") == 0) {
@@ -46,43 +35,6 @@ void handle_command(char *cmd){
                    (int)(sizeof(device_name) - 1));
         }
     }
-    else if (strncmp(cmd, "setkey ", 7) == 0) {     //setting lora key
-        char *new_key = cmd + 7;
-        new_key[strcspn(new_key, "\r\n")] = 0;  //trim newline characters
-
-        if (strlen(new_key) < sizeof(key_name)) {
-            strcpy(key_name, new_key);
-
-            err = storage.writeValue("lora_key", "key", NvsDataType::STR, &key_name);
-            if (err != ESP_OK) {
-                printf("ERROR: Failed to write: %d\n", err);
-                return;
-            }
-            printf("LoRa key stored: %s\n ", key_name);
-        } else {
-            printf("Error: key too long (max %d chars)\n",
-                   (int)(sizeof(key_name) - 1));
-        }
-    }
-    else if (strncmp(cmd, "setfrequency ", 13) == 0) {
-        char *new_freq = cmd + 13;
-        new_freq[strcspn(new_freq, "\r\n")] = 0;
-
-        char *end;
-        long value = strtol(new_freq, &end, 10);
-        if (*end != '\0') {
-            printf("Invalid frequency value\n");
-            return;
-        }
-        com_freq = (int)value;
-
-        err = storage.writeValue("com_frequency", "freq", NvsDataType::INT, &com_freq);
-        if (err != ESP_OK) {
-            printf("ERROR: Failed to write: %d\n", err);
-            return;
-        }
-        printf("Communication frequency stored: %s\n ", com_freq);
-    }
 
     else {
         printf("Unknown command. Type 'help'\n");
@@ -90,7 +42,8 @@ void handle_command(char *cmd){
 }
 
 // ---- USB Console Task ----
-void usb_console_task(void *arg){
+void usb_console_task(void *arg)
+{
     char rx_buffer[RX_BUF_SIZE];
     int idx = 0;
 
@@ -122,16 +75,8 @@ void usb_console_task(void *arg){
         vTaskDelay(1);
     }
 }
-
-bool is_usb_connected(void) {
-    return usb_serial_jtag_is_connected
-    ();
-}
-
-extern "C" void app_main(void){
-
-    storage.initNVS();
-    loadConfigFromNVS();
+extern "C" void app_main(void)
+{
     // Install USB Serial JTAG driver
     usb_serial_jtag_driver_config_t config = {1024, 1024}; // rx_buffer_size, tx_buffer_size
     usb_serial_jtag_driver_install(&config);
