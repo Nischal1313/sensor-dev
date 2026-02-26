@@ -126,11 +126,11 @@ void consoleTask(void* arg)
 
     printf("Console ready.\n> ");
     printf("\nAvailable commands:\n");
-        printf("  set-dev <value>   : Set DevEUI string\n");
-        printf("  set-int <value>   : Set int64 value\n");
-        printf("  show              : Show current stored values\n");
-        printf("  help              : Show this help message\n");
-        printf("  end               : Exit console task\n\n");
+        printf("  set-appkey <value>    : Set appkey string\n");
+        printf("  set-freq <value>   : Set communication frequency (in minutes)\n");
+        printf("  show               : Show current stored values\n");
+        printf("  help               : Show this help message\n");
+        printf("  end                : Exit console task\n\n");
 
     while (true)
     {
