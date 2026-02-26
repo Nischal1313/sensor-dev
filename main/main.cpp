@@ -15,8 +15,8 @@
 #define BUF_SIZE 256
 
 // Persistent variables
-char g_dev_eui[32] = {0};
-int64_t g_my_int64 = 0;
+char g_app_key[32] = {0};
+uint8_t g_com_freq = 0;
 
 /* ---------------------------------------------------------- */
 /* Load config from NVS */
@@ -25,56 +25,56 @@ void loadConfig()
 {
     size_t len;
 
-    len = sizeof(g_dev_eui);
-    if (Storage::readValue("config", "dev_eui",
+    len = sizeof(g_app_key);
+    if (Storage::readValue("config", "appkey",
                            NvsDataType::STR,
-                           g_dev_eui,
+                           g_app_key,
                            &len) != ESP_OK)
     {
-        strcpy(g_dev_eui, "not_set");
+        strcpy(g_app_key, "not_set");
     }
 
-    if (Storage::readValue("config", "my_int64",
+    if (Storage::readValue("config", "comfreq",
                            NvsDataType::I64,
-                           &g_my_int64,
+                           &g_com_freq,
                            nullptr) != ESP_OK)
     {
-        g_my_int64 = 0;
+        g_com_freq = 0;
     }
 
     printf("\nLoaded config:\n");
-    printf("dev_eui: %s\n", g_dev_eui);
-    printf("my_int64: %" PRId64 "\n\n", g_my_int64);
+    printf("app key: %s\n", g_app_key);
+    printf("communication frequency: %" PRId64 "\n\n", g_com_freq);
 }
 
 /* ---------------------------------------------------------- */
 /* Save functions */
 /* ---------------------------------------------------------- */
-void saveDevEui(const char* value)
+void saveAppKey(const char* value)
 {
-    strncpy(g_dev_eui, value, sizeof(g_dev_eui) - 1);
-    g_dev_eui[sizeof(g_dev_eui) - 1] = '\0';
+    strncpy(g_app_key, value, sizeof(g_app_key) - 1);
+    g_app_key[sizeof(g_app_key) - 1] = '\0';
 
     Storage::writeValue("config",
-                        "dev_eui",
+                        "appkey",
                         NvsDataType::STR,
-                        g_dev_eui,
+                        g_app_key,
                         0);
 
-    printf("dev_eui saved.\n");
+    printf("app key saved.\n");
 }
 
-void saveInt64(int64_t value)
+void saveFreq(uint8_t value)
 {
-    g_my_int64 = value;
+    g_com_freq = value;
 
     Storage::writeValue("config",
-                        "my_int64",
+                        "comfreq",
                         NvsDataType::I64,
-                        &g_my_int64,
+                        &g_com_freq,
                         0);
 
-    printf("my_int64 saved.\n");
+    printf("frequency saved.\n");
 }
 
 
@@ -82,28 +82,28 @@ bool processCommand(char* cmd)
 {
     cmd[strcspn(cmd, "\r\n")] = 0;
 
-    if (strncmp(cmd, "set-dev ", 8) == 0)
+    if (strncmp(cmd, "set-appkey ", 8) == 0)
     {
-        saveDevEui(cmd + 8);
+        saveAppKey(cmd + 8);
     }
-    else if (strncmp(cmd, "set-int ", 8) == 0)
+    else if (strncmp(cmd, "set-freq ", 8) == 0)
     {
-        int64_t val = atoll(cmd + 8);
-        saveInt64(val);
+        uint8_t val = atoll(cmd + 8);
+        saveFreq(val);
     }
     else if (strcmp(cmd, "show") == 0)
     {
-        printf("dev_eui: %s\n", g_dev_eui);
-        printf("my_int64: %" PRId64 "\n", g_my_int64);
+        printf("app key: %s\n", g_app_key);
+        printf("communication frequency: %" PRId64 " minutes\n", g_com_freq);
     }
     else if (strcmp(cmd, "help") == 0)
     {
         printf("\nAvailable commands:\n");
-        printf("  set-dev <value>   : Set DevEUI string\n");
-        printf("  set-int <value>   : Set int64 value\n");
-        printf("  show              : Show current stored values\n");
-        printf("  help              : Show this help message\n");
-        printf("  end               : Exit console task\n\n");
+        printf("  set-appkey <value>    : Set appkey string\n");
+        printf("  set-freq <value>   : Set communication frequency (in minutes)\n");
+        printf("  show               : Show current stored values\n");
+        printf("  help               : Show this help message\n");
+        printf("  end                : Exit console task\n\n");
     }
     else if (strcmp(cmd, "end") == 0)
     {
