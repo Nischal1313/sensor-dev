@@ -192,7 +192,9 @@ void consoleTask(void *arg) {
     xTimerStop(idleTimer, 0);
     vTaskDelete(NULL);
 }
-
+void nextTask(void *arg) {
+    printf("NEXT task started.\n");
+}
 /* ---------------------------------------------------------- */
 /* app_main */
 /* ---------------------------------------------------------- */
@@ -209,7 +211,7 @@ extern "C" void app_main(void) {
         "IdleTimer", pdMS_TO_TICKS(IDLE_TIMEOUT_MS), pdFALSE, NULL, idle_timeout_callback);
 
     xTimerStart(idleTimer, 0);
-
+    xTaskCreate(nextTask, "nextTask", 4096, NULL, 4, NULL);
     // Prevent app_main from returning
     while (true) {
         vTaskDelay(portMAX_DELAY);

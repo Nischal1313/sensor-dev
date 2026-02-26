@@ -25,10 +25,9 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f69cee7c-e90f-4a7c-852b-d5c516c4a5a0" name="Changes" comment="added input validation">
+    <list default="true" id="f69cee7c-e90f-4a7c-852b-d5c516c4a5a0" name="Changes" comment="added a timeout">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdkconfig.old" beforeDir="false" afterPath="$PROJECT_DIR$/sdkconfig.old" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,7 +120,7 @@
       <workItem from="1771924643985" duration="3836000" />
       <workItem from="1772094238931" duration="6871000" />
       <workItem from="1772102547665" duration="2320000" />
-      <workItem from="1772109365908" duration="5186000" />
+      <workItem from="1772109365908" duration="6877000" />
     </task>
     <task id="LOCAL-00001" summary="usb connection check">
       <option name="closed" value="true" />
@@ -163,7 +162,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772103650639</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="added a timeout">
+      <option name="closed" value="true" />
+      <created>1772114867569</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1772114867569</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -179,7 +186,8 @@
     <MESSAGE value="commands" />
     <MESSAGE value="changed namings" />
     <MESSAGE value="added input validation" />
-    <option name="LAST_COMMIT_MESSAGE" value="added input validation" />
+    <MESSAGE value="added a timeout" />
+    <option name="LAST_COMMIT_MESSAGE" value="added a timeout" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
