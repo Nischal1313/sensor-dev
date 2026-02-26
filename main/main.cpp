@@ -77,42 +77,14 @@ void saveInt64(int64_t value)
     printf("my_int64 saved.\n");
 }
 
-/* ---------------------------------------------------------- */
-/* Command processor */
-/* ---------------------------------------------------------- */
+
 bool processCommand(char* cmd)
 {
     cmd[strcspn(cmd, "\r\n")] = 0;
 
     if (strncmp(cmd, "set-dev ", 8) == 0)
     {
-        saveDevEui(cmd + 8);void consoleTask(void* arg)
-        {
-            uint8_t data[BUF_SIZE];
-        
-            printf("Console ready.\n");
-        
-            while (true)
-            {
-                int len = usb_serial_jtag_read_bytes(
-                    data,
-                    BUF_SIZE - 1,
-                    pdMS_TO_TICKS(1000)
-                );
-        
-                if (len > 0)
-                {
-                    data[len] = 0;
-        
-                    if (!processCommand((char*)data))
-                        break;
-                }
-            }
-        
-            printf("Console task ended.\n");
-            vTaskDelete(NULL);
-        }
-        
+        saveDevEui(cmd + 8);
     }
     else if (strncmp(cmd, "set-int ", 8) == 0)
     {
@@ -123,6 +95,15 @@ bool processCommand(char* cmd)
     {
         printf("dev_eui: %s\n", g_dev_eui);
         printf("my_int64: %" PRId64 "\n", g_my_int64);
+    }
+    else if (strcmp(cmd, "help") == 0)
+    {
+        printf("\nAvailable commands:\n");
+        printf("  set-dev <value>   : Set DevEUI string\n");
+        printf("  set-int <value>   : Set int64 value\n");
+        printf("  show              : Show current stored values\n");
+        printf("  help              : Show this help message\n");
+        printf("  end               : Exit console task\n\n");
     }
     else if (strcmp(cmd, "end") == 0)
     {
@@ -137,9 +118,6 @@ bool processCommand(char* cmd)
     return true;
 }
 
-/* ---------------------------------------------------------- */
-/* USB Console Task */
-/* ---------------------------------------------------------- */
 void consoleTask(void* arg)
 {
     uint8_t rx_byte;
