@@ -25,7 +25,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f69cee7c-e90f-4a7c-852b-d5c516c4a5a0" name="Changes" comment="commands">
+    <list default="true" id="f69cee7c-e90f-4a7c-852b-d5c516c4a5a0" name="Changes" comment="changed namings">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flash.sh" beforeDir="false" afterPath="$PROJECT_DIR$/flash.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main/main.cpp" afterDir="false" />
@@ -121,7 +121,8 @@
       <workItem from="1765463686220" duration="386000" />
       <workItem from="1770836921233" duration="6656000" />
       <workItem from="1771924643985" duration="3836000" />
-      <workItem from="1772094238931" duration="6214000" />
+      <workItem from="1772094238931" duration="6871000" />
+      <workItem from="1772102547665" duration="826000" />
     </task>
     <task id="LOCAL-00001" summary="usb connection check">
       <option name="closed" value="true" />
@@ -139,7 +140,23 @@
       <option name="project" value="LOCAL" />
       <updated>1772095530987</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="changed namings">
+      <option name="closed" value="true" />
+      <created>1772101395230</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1772101395230</updated>
+    </task>
+    <task id="LOCAL-00004" summary="changed namings">
+      <option name="closed" value="true" />
+      <created>1772101533441</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1772101533441</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -153,7 +170,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="usb connection check" />
     <MESSAGE value="commands" />
-    <option name="LAST_COMMIT_MESSAGE" value="commands" />
+    <MESSAGE value="changed namings" />
+    <option name="LAST_COMMIT_MESSAGE" value="changed namings" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

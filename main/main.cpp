@@ -44,7 +44,7 @@ void loadConfig()
 
     printf("\nLoaded config:\n");
     printf("app key: %s\n", g_app_key);
-    printf("communication frequency: %" PRId64 "\n\n", g_com_freq);
+    printf("communication frequency: %" PRId8 "\n\n", g_com_freq);
 }
 
 /* ---------------------------------------------------------- */
@@ -82,19 +82,23 @@ bool processCommand(char* cmd)
 {
     cmd[strcspn(cmd, "\r\n")] = 0;
 
-    if (strncmp(cmd, "set-appkey ", 8) == 0)
+    if (strncmp(cmd, "set-appkey ", 10) == 0)
     {
-        saveAppKey(cmd + 8);
+        saveAppKey(cmd + 10);
     }
     else if (strncmp(cmd, "set-freq ", 8) == 0)
     {
-        uint8_t val = atoll(cmd + 8);
+        char *end;
+        long val = strtol(cmd + 8, &end, 10);
+        if (end == cmd + 8 || *end != '\0' || val < 0 || val > 255) {   // input validation
+            printf("Invalid value for set-appkey\n");
+        }
         saveFreq(val);
     }
     else if (strcmp(cmd, "show") == 0)
     {
         printf("app key: %s\n", g_app_key);
-        printf("communication frequency: %" PRId64 " minutes\n", g_com_freq);
+        printf("communication frequency: %" PRId8 " minutes\n", g_com_freq);
     }
     else if (strcmp(cmd, "help") == 0)
     {
