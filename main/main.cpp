@@ -13,13 +13,6 @@ static char key_name[64] = "key";   // Simple key variable
 static int com_freq = 10; // Sensor communication frequency
 
 
-#include <stdio.h>
-#include <stdbool.h>
-#include "driver/usb_serial_jtag.h"
-#include "sdkconfig.h"
-#include "freertos/task.h"
-#include "freertos/FreeRTOS.h"
-
 // ---- Command Handler ----
 void handle_command(char *cmd){
     if (strcmp(cmd, "help") == 0) {
@@ -64,7 +57,7 @@ void handle_command(char *cmd){
                    (int)(sizeof(key_name) - 1));
         }
     }
-    else if (strncmp(cmd, "setfrequency ", 13) == 0) {
+    else if (strncmp(cmd, "setfrequency ", 13) == 0) {      // set sensor communication frequency
         char *new_freq = cmd + 13;
         new_freq[strcspn(new_freq, "\r\n")] = 0;
 
@@ -132,6 +125,7 @@ extern "C" void app_main(void){
 
     storage.initNVS();
     loadConfigFromNVS();
+
     // Install USB Serial JTAG driver
     usb_serial_jtag_driver_config_t config = {1024, 1024}; // rx_buffer_size, tx_buffer_size
     usb_serial_jtag_driver_install(&config);
